@@ -47,15 +47,27 @@
         <asp:Button ID="Delete" runat="server" Text="削除" />
      
 
-        <asp:GridView ID="GridView1" runat="server" AllowPaging="false" AutoGenerateColumns="true" ShowHeader="true" Visible="true" ShowFooter="false" Width="484px">
-                 
+        <asp:GridView   ID="GridView1" runat="server"   Width="484px"  AutoGenerateEditButton="true" >
+  
 
-        </asp:GridView>
-     
+        </asp:GridView >
+            
+
               
             検索:<asp:TextBox ID="TxtSeach" runat="server" asp-for="SearchString" ></asp:TextBox>
         <asp:Button ID="Seach" type="submit" runat="server" Text="検索" />
    
+                    
+        <trace
+            enabled="true"
+            requestLimit="10"
+            pageOutput="false"
+            traceMode="SortByTime"
+            localOnly="true"
+
+        />
+
+
 
 <%--        <asp:Button ID="Button1" runat="server" Text="Button" />
      
