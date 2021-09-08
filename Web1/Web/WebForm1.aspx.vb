@@ -1,4 +1,5 @@
-﻿Imports System.Data.Odbc
+﻿Imports System.Data.Common
+Imports System.Data.Odbc
 Imports System.Data.OleDb
 Imports System.Data.SqlClient
 Imports System.Drawing
@@ -191,13 +192,8 @@ Public Class WebForm1
         End Try
 
     End Sub
-    Public Sub Task()
 
 
-
-
-
-    End Sub
 
     '検索ボタン
     Protected Sub Seach_Click(sender As Object, e As EventArgs) Handles Seach.Click
@@ -205,25 +201,22 @@ Public Class WebForm1
 
 
 
+
         Dim resultDt As New DataTable
-
-
         Dim sql = New System.Text.StringBuilder()
 
 
 
         sql.AppendLine("SELECT")
-        sql.AppendLine("*")
+        sql.AppendLine(" *")
         sql.AppendLine("FROM 名前テーブル")
-        sql.AppendLine("WHERE id LIKE CONCAT(@SearchID,'%'")
-        sql.AppendLine("WHERE id=" + Seach.Text = Seach.Text & Request.Form("ID"))
-        MessageBox.Show(sql.AppendLine("WHERE id LIKE CONCAT(@SearchID,'%'").ToString)
+        'sql.AppendLine("WHERE id=" + TextBox1.Text + "")
         'Access接続準備
         Dim command As New OleDbCommand
         Dim da As New OleDbDataAdapter
         Dim cnAccess As OleDbConnection = New OleDbConnection
-        Dim returnValue As Object
         cnAccess.ConnectionString = My.Settings.AccesCon
+
 
         'Access接続開始
         cnAccess.Open()
@@ -237,54 +230,30 @@ Public Class WebForm1
             'SQL実行 結果をデータテーブルに格納
             da.Fill(resultDt)
 
-            command.Parameters.Add(New Parameter("@SeachID"(SearchID)))
-
-            Using dr As OleDbDataReader = command.ExecuteReader()
-                '取得レコード有無
-                If dr.HasRows = True Then
-                    While dr.Read()
-                        Dim row As New GridView
-
-                        Dim idx1 As Integer
-                        idx1 = dr.GetOrdinal("ID")
-                        row.Rows(0).Cells(0).Text = dr.GetString(idx1)
+            Dim reader As OleDbDataReader = command.ExecuteReader()
 
 
 
-                        Dim idx2 As Integer
-                        idx2 = dr.GetOrdinal("顧客名")
-
-                        Dim idx3 As Integer
-                        idx3 = dr.GetOrdinal("フリガナ")
-
-                        Dim idx4 As Integer
-                        idx4 = dr.GetOrdinal("性別")
-
-                        Dim idx5 As Integer
-                        idx5 = dr.GetOrdinal("会社名")
-
-                        Dim idx6 As Integer
-                        idx6 = dr.GetOrdinal("住所")
+            If reader.Read() Then
 
 
-                    End While
-                End If
 
-            End Using
-            Dim reader As IDataReader = command.ExecuteReader()
-            If reader.Read Then
+                TextBox1.Text = reader("id").ToString
 
-
-                While reader.Read()
-                    IDList.Add(String.Format("{0}", reader("id")))
-                    nameList.Add(String.Format("{0}", reader("顧客名")))
-                    furiganaList.Add(String.Format("{0}", reader("フリガナ")))
-                    GenderList.Add(String.Format("{0}", reader("性別")))
-                    addressList.Add(String.Format("{0}", reader("住所")))
+                TextBox2.Text = reader("顧客名").ToString
+                TextBox3.Text = reader("フリガナ").ToString
+                TextBox4.Text = reader("性別").ToString
+                TextBox5.Text = reader("会社名").ToString
+                TextBox6.Text = reader("住所").ToString
 
 
-                End While
+
             End If
+
+
+
+
+
         Catch ex As Exception
             Throw
         Finally
@@ -294,39 +263,55 @@ Public Class WebForm1
         End Try
 
 
-        'データテーブルの結果を表示
-        For rowindex As Integer = 1 To resultDt.Rows.Count - 1
-            For colindex As Integer = 1 To resultDt.Columns.Count - 1
+
+        'For i As Integer = 0 To resultDt.Rows.Count - 1
+        '    TextBox1.Text = GridView1.Rows(i).Cells(1).Text
+        '    TextBox2.Text = GridView1.Rows(i).Cells(2).Text
+        '    TextBox3.Text = GridView1.Rows(i).Cells(3).Text
+        '    TextBox4.Text = GridView1.Rows(i).Cells(4).Text
+        '    TextBox5.Text = GridView1.Rows(i).Cells(5).Text
+        '    TextBox6.Text = GridView1.Rows(i).Cells(6).Text
 
 
-                'For i As Integer = 1 To resultDt.Rows.Count - 1
-                '    For j As Integer = 1 To resultDt.Columns("ID").MaxLength
-
-
-
-                'テーブル作成処理
-                Me.TextBox2.Text = GridView1.Rows(rtnNo).Cells(2).ToString
-                Me.TextBox3.Text = GridView1.Rows(rtnNo).Cells(3).ToString
-                Me.TextBox4.Text = GridView1.Rows(rtnNo).Cells(4).ToString
-                Me.TextBox5.Text = GridView1.Rows(rtnNo).Cells(5).ToString
-                Me.TextBox6.Text = GridView1.Rows(rtnNo).Cells(6).ToString
-
-                Me.TextBox1.Text = GridView1.Rows(rowindex).Cells(rowindex).Text.Count + 1
-
-
-
-
-
-
-                GridView1.DataSource = resultDt
-
-                GridView1.DataBind()
+        'Next
+        ''データテーブルの結果を表示
+        'For rowindex As Integer = 1 To resultDt.Rows.Count - 1
+        '    For colindex As Integer = 1 To resultDt.Columns.Count - 1
+        '        'Using dr As OleDbDataReader = command.ExecuteReader()
+        '        '    '取得レコード有無
+        '        '    If dr.HasRows = True Then
+        '        '        While dr.Read()
+        '        If Seach.Text > command.CommandText Then
 
 
 
-            Next
 
-        Next
+        '            MsgBox(1)
+
+
+        '            'テーブル作成処理
+        '            Me.TextBox1.Text = GridView1.Rows(Seach.Text).Cells(1).Text
+        '            Me.TextBox2.Text = GridView1.Rows(Seach.Text).Cells(2).Text
+        '            Me.TextBox3.Text = GridView1.Rows(rtnNo).Cells(3).Text
+        '            Me.TextBox4.Text = GridView1.Rows(rtnNo).Cells(4).Text
+        '            Me.TextBox5.Text = GridView1.Rows(rtnNo).Cells(5).Text
+        '            Me.TextBox6.Text = GridView1.Rows(rtnNo).Cells(6).Text
+
+        '        End If
+
+
+        '        'GridView1.DataSource = resultDt
+
+
+        '        'GridView1.DataBind()
+        '    Next
+
+        'Next
+
+
+
+
+
 
 
     End Sub
@@ -473,9 +458,7 @@ Public Class WebForm1
     'End Sub
 
 
-    Protected Sub GridView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView1.SelectedIndexChanged
 
-    End Sub
 
     Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         'Dim conn As SqlConnection = New SqlConnection(SqlDataSource1.ConnectionString)
@@ -611,5 +594,43 @@ Public Class WebForm1
 
     End Sub
 
+    Protected Sub GridView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView1.SelectedIndexChanged
 
+    End Sub
+
+    'Protected Sub menu_MenuItemClick(sender As Object, e As MenuEventArgs) Handles menu.MenuItemClick
+    '    Dim setting As ConnectionStringSettings =
+    '   ConfigurationManager.ConnectionStrings("Test")
+    '    Dim factory As DbProviderFactory =
+    '        DbProviderFactories.GetFactory(setting.ProviderName)
+    '    Using db As DbConnection = factory.CreateConnection()
+    '        db.ConnectionString = setting.ConnectionString
+
+
+    '        ' パラメータparentをキーにsitemapテーブルを検索
+    '        ' （parentで指定されたURLを親に持つコンテンツを抽出）
+    '        Dim comm As DbCommand = factory.CreateCommand()
+    '        comm.CommandText =
+    '          "SELECT * FROM 名前テーブル WHERE ID=@id"
+    '        comm.Connection = db
+    '        Dim param As DbParameter = factory.CreateParameter()
+    '        param.ParameterName = "@id"
+    '        param.Value = Parent
+    '        comm.Parameters.Add(param)
+    '        db.Open()
+    '        Dim reader As DbDataReader = comm.ExecuteReader()
+
+    '        ' 取得したコンテンツを新規ノードとしてメニューに追加
+    '        ' その際、そのコンテンツが最末端でない（子ノードを持つ）
+    '        ' 場合には、CreateItemメソッドを再帰的に呼び出し、
+    '        ' 同様にノードの追加を行う
+    '        Do While reader.Read()
+    '            Dim item As New MenuItem()
+    '            item.Name = reader.GetString(0)
+    '            item.Text = reader.GetString(1)
+    '            'Me(reader.GetString(0), item.Text)
+    '            'Items.Add(item)
+    '        Loop
+    '    End Using
+    'End Sub
 End Class
