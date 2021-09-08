@@ -433,14 +433,5 @@ Button1 コントロール。
 変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
 </remarks>
 </member>
-<member name="F:Web.WebForm1._SqlDataSource1">
-<summary>
-SqlDataSource1 コントロール。
-</summary>
-<remarks>
-自動生成されたフィールド。
-変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
-</remarks>
-</member>
 </members>
 </doc>
