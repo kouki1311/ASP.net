@@ -118,6 +118,15 @@ GridView1 コントロール。
 変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
 </remarks>
 </member>
+<member name="F:Web.Web._SqlDataSource1">
+<summary>
+SqlDataSource1 コントロール。
+</summary>
+<remarks>
+自動生成されたフィールド。
+変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+</remarks>
+</member>
 <member name="F:Web.Web._BtnKensaku">
 <summary>
 BtnKensaku コントロール。
@@ -271,6 +280,15 @@ title コントロール。
 変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
 </remarks>
 </member>
+<member name="F:Web.WebForm1._DropDownList2">
+<summary>
+DropDownList2 コントロール。
+</summary>
+<remarks>
+自動生成されたフィールド。
+変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+</remarks>
+</member>
 <member name="F:Web.WebForm1._newAdd">
 <summary>
 newAdd コントロール。
@@ -292,6 +310,60 @@ TxtSeach コントロール。
 <member name="F:Web.WebForm1._Seach">
 <summary>
 Seach コントロール。
+</summary>
+<remarks>
+自動生成されたフィールド。
+変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+</remarks>
+</member>
+<member name="F:Web.WebForm1._namexdata">
+<summary>
+namexdata コントロール。
+</summary>
+<remarks>
+自動生成されたフィールド。
+変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+</remarks>
+</member>
+<member name="F:Web.WebForm1._namex">
+<summary>
+namex コントロール。
+</summary>
+<remarks>
+自動生成されたフィールド。
+変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+</remarks>
+</member>
+<member name="F:Web.WebForm1._Button5">
+<summary>
+Button5 コントロール。
+</summary>
+<remarks>
+自動生成されたフィールド。
+変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+</remarks>
+</member>
+<member name="F:Web.WebForm1._Label1">
+<summary>
+Label1 コントロール。
+</summary>
+<remarks>
+自動生成されたフィールド。
+変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+</remarks>
+</member>
+<member name="F:Web.WebForm1._DropDownList1">
+<summary>
+DropDownList1 コントロール。
+</summary>
+<remarks>
+自動生成されたフィールド。
+変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+</remarks>
+</member>
+<member name="F:Web.WebForm1._DropDownList3">
+<summary>
+DropDownList3 コントロール。
 </summary>
 <remarks>
 自動生成されたフィールド。
@@ -415,9 +487,36 @@ GridView1 コントロール。
 変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
 </remarks>
 </member>
+<member name="F:Web.WebForm1._SqlDataSource1">
+<summary>
+SqlDataSource1 コントロール。
+</summary>
+<remarks>
+自動生成されたフィールド。
+変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+</remarks>
+</member>
 <member name="F:Web.WebForm1._SqlDataSource2">
 <summary>
 SqlDataSource2 コントロール。
+</summary>
+<remarks>
+自動生成されたフィールド。
+変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+</remarks>
+</member>
+<member name="F:Web.WebForm1._GridView2">
+<summary>
+GridView2 コントロール。
+</summary>
+<remarks>
+自動生成されたフィールド。
+変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+</remarks>
+</member>
+<member name="F:Web.WebForm1._SqlDataSource3">
+<summary>
+SqlDataSource3 コントロール。
 </summary>
 <remarks>
 自動生成されたフィールド。

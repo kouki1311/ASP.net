@@ -1,0 +1,45 @@
+    'Try
+        '    Using con As New OleDbConnection
+        '        Using cmd As New OleDbCommand
+        '            con.ConnectionString =
+        '              "Provider=Microsoft.Jet.OLEDB.4.0;" &
+        '              "Data Source=" & "C:\Users\koshi\Documents\Web_ASP\Web1\Web\App_Data\Test.accdb"
+        '            cmd.Connection = con
+
+        '            'DB接続
+        '            con.Open()
+        '            cmd.CommandText = "SELECT ID FROM 名前テーブル OREDER BY ID"
+        '            MessageBox.Show(cmd.CommandText)
+        '            'レコード読込
+        '            Using dr As OleDbDataReader = cmd.ExecuteReader()
+        '                'レコード有無レコード
+        '                If dr.HasRows = True Then
+        '                    'レコードが取得できた時
+        '                    While dr.Read()
+        '                        Dim row As New GridView
+        '                        'セルのテンプレート
+        '                        Dim idx1 As Integer
+        '                        idx1 = dr.GetOrdinal("id")
+        '                        TextBox1.Text = dr.GetString(idx1)
+
+        '                        Dim idx2 As Integer
+        '                        idx2 = dr.GetOrdinal("顧客名")
+        '                        row.Rows(0).Cells(2).Text = dr.GetString(idx2)
+
+
+        '                    End While
+        '                Else
+        '                    MessageBox.Show("レコードがありません")
+        '                End If
+
+
+        '            End Using
+
+
+
+        '        End Using
+        '    End Using
+
+        'Catch ex As Exception
+        '    MessageBox.Show(ex.ToString)
+        'End Try
