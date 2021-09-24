@@ -14,225 +14,229 @@ Public Class Web
     Public SearchID As String
 
     Public SearchBtn As String
-    Protected Sub BtnKensaku_Click(sender As Object, e As EventArgs) Handles BtnKensaku.Click
-        Dim resultDt As New DataTable
-        Dim sql = New System.Text.StringBuilder()
-
-
-
-        sql.AppendLine("SELECT")
-        sql.AppendLine(" *")
-        sql.AppendLine("FROM 名前テーブル")
-        'sql.AppendLine("WHERE id LIKE CONCAT(@SearchID,'%'")
-
-        'Access接続準備
-        Dim command As New OleDbCommand
-        Dim da As New OleDbDataAdapter
-        Dim cnAccess As OleDbConnection = New OleDbConnection
-        cnAccess.ConnectionString = My.Settings.AccesCon
-        'command.Parameters.Add(New Parameter("@SearchID"(SearchID)))
-
-
-        'Access接続開始
-        cnAccess.Open()
-
-        Try
-
-            command.Connection = cnAccess
-            command.CommandText = sql.ToString
-            da.SelectCommand = command
-
-            'SQL実行 結果をデータテーブルに格納
-            da.Fill(resultDt)
-
-            'Dim reader As IDataReader = command.ExecuteReader()
-            Using dr As OleDbDataReader = command.ExecuteReader()
-                '取得レコード有無
-                If dr.HasRows = True Then
-
-
-
-                    While dr.Read()
-                        IDList.Add(String.Format("{0}", dr("id")))
-                        nameList.Add(String.Format("{0}", dr("顧客名")))
-                        furiganaList.Add(String.Format("{0}", dr("フリガナ")))
-                        GenderList.Add(String.Format("{0}", dr("性別")))
-                        addressList.Add(String.Format("{0}", dr("住所")))
-
-
-                    End While
-                End If
-            End Using
-
-
-
-        Catch ex As Exception
-            Throw
-        Finally
-            command.Dispose()
-            da.Dispose()
-            cnAccess.Close()
-        End Try
-
-        'データテーブルの結果を表示
-        For rowindex As Integer = 1 To resultDt.Rows.Count - 1
-            For colindex As Integer = 1 To resultDt.Columns.Count - 1
-
-
-                TextBox1.Text = resultDt.Rows(rowindex).ItemArray(0)
-
-
-
-                TextBox2.Text = resultDt.Rows(rowindex).ItemArray(1)
-
-                TextBox3.Text = resultDt.Rows(rowindex).ItemArray(2)
-
-                TextBox4.Text = resultDt.Rows(rowindex).ItemArray(3)
-                TextBox5.Text = resultDt.Rows(rowindex).ItemArray(4)
-                TextBox6.Text = resultDt.Rows(rowindex).ItemArray(5)
-            Next
-
-        Next
-
-        'Dim sql3 = New System.Text.StringBuilder()
-        'Dim list As New List(Of String)
-
-        'Dim text As Integer
-
-
-        'sql3.AppendLine("DELETE FROM 名前テーブル )
-        'sql3.AppendLine(  WHERE ID = ' " & TextBox1.Text & " ' ")
-
-
-
-        ''Access接続準備
-        'Dim command As New OleDbCommand
-        'Dim cnAccess As OleDbConnection = New OleDbConnection
-        'cnAccess.ConnectionString = My.Settings.AccesCon
-
-
-        ''Access接続開始
-        'cnAccess.Open()
-
-        'Dim tran As OleDbTransaction
-        'tran = cnAccess.BeginTransaction
-        'Try
-
-        '    command.Connection = cnAccess
-        '    command.Transaction = tran
-
-
-
-        '    command.CommandText = sql3.ToString
-        '    command.ExecuteNonQuery()
-        '    list.Add(sql3.ToString)
-
-        '    tran.Commit()
-
-
-        'Catch ex As Exception
-        '    tran.Rollback()
-        '    Throw
-        'Finally
-        '    command.Dispose()
-        '    cnAccess.Close()
-        'End Try
-    End Sub
 
     Protected Sub TextBox7_TextChanged(sender As Object, e As EventArgs) Handles TextBox7.TextChanged
 
     End Sub
-
-    Protected Sub deleteBtn_Click(sender As Object, e As EventArgs) Handles deleteBtn.Click
-        Dim resultDt As New DataTable
-        Dim sql = New System.Text.StringBuilder()
-
-
-
-        sql.AppendLine("SELECT")
-        sql.AppendLine(" *")
-        sql.AppendLine("FROM 名前テーブル")
-        'sql.AppendLine("WHERE id LIKE CONCAT(@SearchID,'%'")
-
-        'Access接続準備
-        Dim command As New OleDbCommand
-        Dim da As New OleDbDataAdapter
-        Dim cnAccess As OleDbConnection = New OleDbConnection
-        cnAccess.ConnectionString = My.Settings.AccesCon
-        'command.Parameters.Add(New Parameter("@SearchID"(SearchID)))
-
-
-        'Access接続開始
-        cnAccess.Open()
-
-        Try
-
-            command.Connection = cnAccess
-            command.CommandText = sql.ToString
-            da.SelectCommand = command
-
-            'SQL実行 結果をデータテーブルに格納
-            da.Fill(resultDt)
-
-            'Dim reader As IDataReader = command.ExecuteReader()
-            Using dr As OleDbDataReader = command.ExecuteReader()
-                '取得レコード有無
-                If dr.HasRows = True Then
+    'Protected Sub BtnKensaku_Click(sender As Object, e As EventArgs) Handles BtnKensaku.Click
+    '    Dim resultDt As New DataTable
+    '    Dim sql = New System.Text.StringBuilder()
 
 
 
-                    While dr.Read()
-                        IDList.Add(String.Format("{0}", dr("id")))
+    '    sql.AppendLine("SELECT")
+    '    sql.AppendLine(" *")
+    '    sql.AppendLine("FROM 名前テーブル")
+    '    'sql.AppendLine("WHERE id LIKE CONCAT(@SearchID,'%'")
+
+    '    'Access接続準備
+    '    Dim command As New OleDbCommand
+    '    Dim da As New OleDbDataAdapter
+    '    Dim cnAccess As OleDbConnection = New OleDbConnection
+    '    cnAccess.ConnectionString = My.Settings.AccesCon
+    '    'command.Parameters.Add(New Parameter("@SearchID"(SearchID)))
 
 
-                        nameList.Add(String.Format("{0}", dr("顧客名")))
-                        nameList.Clear()
+    '    'Access接続開始
+    '    cnAccess.Open()
 
-                        furiganaList.Add(String.Format("{0}", dr("フリガナ")))
-                        furiganaList.Clear()
+    '    Try
 
-                        GenderList.Add(String.Format("{0}", dr("性別")))
-                        GenderList.Clear()
+    '        command.Connection = cnAccess
+    '        command.CommandText = sql.ToString
+    '        da.SelectCommand = command
 
+    '        'SQL実行 結果をデータテーブルに格納
+    '        da.Fill(resultDt)
 
-                        addressList.Add(String.Format("{0}", dr("住所")))
-                        addressList.Clear()
-
-
-
-                    End While
-                End If
-            End Using
-            sql.Clear()
-
-
-        Catch ex As Exception
-            Throw
-        Finally
-            command.Dispose()
-            da.Dispose()
-            cnAccess.Close()
-        End Try
-
-        'データテーブルの結果を表示
-        For rowindex As Integer = 1 To resultDt.Rows.Count - 1
-            For colindex As Integer = 1 To resultDt.Columns.Count - 1
+    '        'Dim reader As IDataReader = command.ExecuteReader()
+    '        Using dr As OleDbDataReader = command.ExecuteReader()
+    '            '取得レコード有無
+    '            If dr.HasRows = True Then
 
 
 
+    '                While dr.Read()
+    '                    IDList.Add(String.Format("{0}", dr("id")))
+    '                    nameList.Add(String.Format("{0}", dr("顧客名")))
+    '                    furiganaList.Add(String.Format("{0}", dr("フリガナ")))
+    '                    GenderList.Add(String.Format("{0}", dr("性別")))
+    '                    addressList.Add(String.Format("{0}", dr("住所")))
 
 
-                'TextBox2.Text = resultDt.Rows(rowindex).ItemArray(1)
+    '                End While
+    '            End If
+    '        End Using
 
-                'TextBox3.Text = resultDt.Rows(rowindex).ItemArray(2)
 
-                'TextBox4.Text = resultDt.Rows(rowindex).ItemArray(3)
-                'TextBox5.Text = resultDt.Rows(rowindex).ItemArray(4)
-                'TextBox6.Text = resultDt.Rows(rowindex).ItemArray(5)
-            Next
 
-        Next
-    End Sub
+    '    Catch ex As Exception
+    '        Throw
+    '    Finally
+    '        command.Dispose()
+    '        da.Dispose()
+    '        cnAccess.Close()
+    '    End Try
+
+    '    'データテーブルの結果を表示
+    '    For rowindex As Integer = 1 To resultDt.Rows.Count - 1
+    '        For colindex As Integer = 1 To resultDt.Columns.Count - 1
+
+
+    '            TextBox1.Text = resultDt.Rows(rowindex).ItemArray(0)
+
+
+
+    '            TextBox2.Text = resultDt.Rows(rowindex).ItemArray(1)
+
+    '            TextBox3.Text = resultDt.Rows(rowindex).ItemArray(2)
+
+    '            TextBox4.Text = resultDt.Rows(rowindex).ItemArray(3)
+    '            TextBox5.Text = resultDt.Rows(rowindex).ItemArray(4)
+    '            TextBox6.Text = resultDt.Rows(rowindex).ItemArray(5)
+    '        Next
+
+    '    Next
+
+    '    'Dim sql3 = New System.Text.StringBuilder()
+    '    'Dim list As New List(Of String)
+
+    '    'Dim text As Integer
+
+
+    '    'sql3.AppendLine("DELETE FROM 名前テーブル )
+    '    'sql3.AppendLine(  WHERE ID = ' " & TextBox1.Text & " ' ")
+
+
+
+    '    ''Access接続準備
+    '    'Dim command As New OleDbCommand
+    '    'Dim cnAccess As OleDbConnection = New OleDbConnection
+    '    'cnAccess.ConnectionString = My.Settings.AccesCon
+
+
+    '    ''Access接続開始
+    '    'cnAccess.Open()
+
+    '    'Dim tran As OleDbTransaction
+    '    'tran = cnAccess.BeginTransaction
+    '    'Try
+
+    '    '    command.Connection = cnAccess
+    '    '    command.Transaction = tran
+
+
+
+    '    '    command.CommandText = sql3.ToString
+    '    '    command.ExecuteNonQuery()
+    '    '    list.Add(sql3.ToString)
+
+    '    '    tran.Commit()
+
+
+    '    'Catch ex As Exception
+    '    '    tran.Rollback()
+    '    '    Throw
+    '    'Finally
+    '    '    command.Dispose()
+    '    '    cnAccess.Close()
+    '    'End Try
+    'End Sub
+
+    'Protected Sub TextBox7_TextChanged(sender As Object, e As EventArgs) Handles TextBox7.TextChanged
+
+    'End Sub
+
+    'Protected Sub deleteBtn_Click(sender As Object, e As EventArgs) Handles deleteBtn.Click
+    '    Dim resultDt As New DataTable
+    '    Dim sql = New System.Text.StringBuilder()
+
+
+
+    '    sql.AppendLine("SELECT")
+    '    sql.AppendLine(" *")
+    '    sql.AppendLine("FROM 名前テーブル")
+    '    'sql.AppendLine("WHERE id LIKE CONCAT(@SearchID,'%'")
+
+    '    'Access接続準備
+    '    Dim command As New OleDbCommand
+    '    Dim da As New OleDbDataAdapter
+    '    Dim cnAccess As OleDbConnection = New OleDbConnection
+    '    cnAccess.ConnectionString = My.Settings.AccesCon
+    '    'command.Parameters.Add(New Parameter("@SearchID"(SearchID)))
+
+
+    '    'Access接続開始
+    '    cnAccess.Open()
+
+    '    Try
+
+    '        command.Connection = cnAccess
+    '        command.CommandText = sql.ToString
+    '        da.SelectCommand = command
+
+    '        'SQL実行 結果をデータテーブルに格納
+    '        da.Fill(resultDt)
+
+    '        'Dim reader As IDataReader = command.ExecuteReader()
+    '        Using dr As OleDbDataReader = command.ExecuteReader()
+    '            '取得レコード有無
+    '            If dr.HasRows = True Then
+
+
+
+    '                While dr.Read()
+    '                    IDList.Add(String.Format("{0}", dr("id")))
+
+
+    '                    nameList.Add(String.Format("{0}", dr("顧客名")))
+    '                    nameList.Clear()
+
+    '                    furiganaList.Add(String.Format("{0}", dr("フリガナ")))
+    '                    furiganaList.Clear()
+
+    '                    GenderList.Add(String.Format("{0}", dr("性別")))
+    '                    GenderList.Clear()
+
+
+    '                    addressList.Add(String.Format("{0}", dr("住所")))
+    '                    addressList.Clear()
+
+
+
+    '                End While
+    '            End If
+    '        End Using
+    '        sql.Clear()
+
+
+    '    Catch ex As Exception
+    '        Throw
+    '    Finally
+    '        command.Dispose()
+    '        da.Dispose()
+    '        cnAccess.Close()
+    '    End Try
+
+    '    'データテーブルの結果を表示
+    '    For rowindex As Integer = 1 To resultDt.Rows.Count - 1
+    '        For colindex As Integer = 1 To resultDt.Columns.Count - 1
+
+
+
+
+
+    '            'TextBox2.Text = resultDt.Rows(rowindex).ItemArray(1)
+
+    '            'TextBox3.Text = resultDt.Rows(rowindex).ItemArray(2)
+
+    '            'TextBox4.Text = resultDt.Rows(rowindex).ItemArray(3)
+    '            'TextBox5.Text = resultDt.Rows(rowindex).ItemArray(4)
+    '            'TextBox6.Text = resultDt.Rows(rowindex).ItemArray(5)
+    '        Next
+
+    '    Next
+    'End Sub
 
     'Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 

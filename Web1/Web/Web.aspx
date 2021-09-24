@@ -1,5 +1,9 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="Web.aspx.vb" Inherits="Web.Web" %>
 
+
+
+
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,6 +14,53 @@
 <body>
     <form id="form1" runat="server">
         <div>
+          
+
+
+
+
+
+
+       <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="SqlDataSource1">
+                <Columns>
+                    <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+                    <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" SortExpression="Id" />
+                    <asp:BoundField DataField="顧客名" HeaderText="顧客名" SortExpression="顧客名" />
+                    <asp:BoundField DataField="フリガナ" HeaderText="フリガナ" SortExpression="フリガナ" />
+                    <asp:BoundField DataField="性別" HeaderText="性別" SortExpression="性別" />
+                    <asp:BoundField DataField="会社名" HeaderText="会社名" SortExpression="会社名" />
+                    <asp:BoundField DataField="住所" HeaderText="住所" SortExpression="住所" />
+                </Columns>
+            </asp:GridView>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Web.My.MySettings.SqlCon %>" DeleteCommand="DELETE FROM [Table] WHERE [Id] = @Id" InsertCommand="INSERT INTO [Table] ([Id], [顧客名], [フリガナ], [性別], [会社名], [住所]) VALUES (@Id, @顧客名, @フリガナ, @性別, @会社名, @住所)" SelectCommand="SELECT * FROM [Table] WHERE ([Id] = @Id)" UpdateCommand="UPDATE [Table] SET [顧客名] = @顧客名, [フリガナ] = @フリガナ, [性別] = @性別, [会社名] = @会社名, [住所] = @住所 WHERE [Id] = @Id">
+                <DeleteParameters>
+                    <asp:Parameter Name="Id" Type="Int32" />
+                </DeleteParameters>
+                <InsertParameters>
+                    <asp:Parameter Name="Id" Type="Int32" />
+                    <asp:Parameter Name="顧客名" Type="String" />
+                    <asp:Parameter Name="フリガナ" Type="String" />
+                    <asp:Parameter Name="性別" Type="String" />
+                    <asp:Parameter Name="会社名" Type="String" />
+                    <asp:Parameter Name="住所" Type="String" />
+                </InsertParameters>
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="GridView1" Name="Id" PropertyName="SelectedValue" Type="Int32" />
+                </SelectParameters>
+                <UpdateParameters>
+                    <asp:Parameter Name="顧客名" Type="String" />
+                    <asp:Parameter Name="フリガナ" Type="String" />
+                    <asp:Parameter Name="性別" Type="String" />
+                    <asp:Parameter Name="会社名" Type="String" />
+                    <asp:Parameter Name="住所" Type="String" />
+                    <asp:Parameter Name="Id" Type="Int32" />
+                </UpdateParameters>
+            </asp:SqlDataSource>
+            <br />
+     
+            <hr ></hr>
+            <a href="WebForm1.aspx">一覧に戻る</a>
+
 
             <asp:Button ID="BtnKensaku" runat="server" Text="Button" />
 

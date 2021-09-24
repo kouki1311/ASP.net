@@ -9,7 +9,21 @@ Imports Cake.Core.IO
 Imports Microsoft.AspNetCore.Mvc
 Imports Microsoft.Office.Interop
 Imports Microsoft.VisualBasic.FileIO
+Imports Microsoft.AspNetCore.Mvc.Rendering
 
+Imports System.Collections.Generic
+Imports System.Data
+
+Imports System.Web
+Imports System.Web.Services
+Imports System.Web.Services.Protocols
+Imports System.Web.Script.Services
+Imports System.Web.Mvc
+Imports Microsoft.AspNetCore.Routing
+
+<WebService(Namespace:="http://tempuri.org/")>
+<WebServiceBinding(ConformsTo:=WsiProfiles.BasicProfile1_1)>
+<ScriptService()>
 Public Class WebForm1
     Inherits System.Web.UI.Page
 
@@ -28,7 +42,12 @@ Public Class WebForm1
 
     Public SearchBtn As String
 
+    'Private ReadOnly _context As RazorPagesMovie.Models.RazorPagesMovieContext
 
+    'Public Sub indexModel(ByVal context As RazorPagesMovie.Models.RazorPagesMovieContext)
+    '    _context = context
+
+    'End Sub
 
 
 
@@ -67,61 +86,100 @@ Public Class WebForm1
 
 
     Public Sub test()
-        Dim resultDt As New DataTable
-        Dim sql = New System.Text.StringBuilder()
-
-
-
-        sql.AppendLine("SELECT")
-        sql.AppendLine(" *")
-        sql.AppendLine("FROM 名前テーブル")
-        'Access接続準備
-        Dim command As New OleDbCommand
-        Dim da As New OleDbDataAdapter
-        Dim cnAccess As OleDbConnection = New OleDbConnection
-        cnAccess.ConnectionString = My.Settings.AccesCon
-
-
-        'Access接続開始
-        cnAccess.Open()
 
         Try
+            ' ---<< データグリッドビュー列スタイル設定 >>---
+            ' 列を自動生成しない
+            GridView1.AutoGenerateColumns = False
 
-            command.Connection = cnAccess
-            command.CommandText = sql.ToString
-            da.SelectCommand = command
+            ' 列幅を自動調整する設定
+            GridView1.ClientIDMode =
+                DataGridViewAutoSizeColumnsMode.AllCells
 
-            'SQL実行 結果をデータテーブルに格納
-            da.Fill(resultDt)
+            ' 列の生成
+            Dim textColumn(2) As DataGridViewTextBoxColumn
 
+            ' 【商品コード】列を作成する
+            textColumn(0) = New DataGridViewTextBoxColumn()
+            ' DataGridViewのヘッダータイトル設定
+            textColumn(0).HeaderText = "id"
 
+            ' 【商品名】列を作成する
+            textColumn(1) = New DataGridViewTextBoxColumn()
+            ' DataGridViewのヘッダータイトル設定
+            textColumn(1).HeaderText = "顧客名"
 
+            ' 【販売単価】列を作成する
+            textColumn(2) = New DataGridViewTextBoxColumn()
+            ' DataGridViewのヘッダータイトル設定
+            textColumn(2).HeaderText = "フリガナ"
+            ' セルの文字列右詰め設定
+            textColumn(2).DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleRight
 
+            ' 生成列をデータグリッドビューに追加する
+            'GridView1.Columns.Add(textColumn)
 
         Catch ex As Exception
-            Throw
-        Finally
-            command.Dispose()
-            da.Dispose()
-            cnAccess.Close()
+            ' 例外が発生した時の処理
+            MessageBox.Show(ex.ToString)
+
         End Try
-
-        'データテーブルの結果を表示
-        For rowindex As Integer = 1 To resultDt.Rows.Count - 1
-            For colindex As Integer = 1 To resultDt.Columns.Count - 1
+        'Dim resultDt As New DataTable
+        'Dim sql = New System.Text.StringBuilder()
 
 
 
+        'sql.AppendLine("SELECT")
+        'sql.AppendLine(" *")
+        'sql.AppendLine("FROM 名前テーブル")
+        ''Access接続準備
+        'Dim command As New OleDbCommand
+        'Dim da As New OleDbDataAdapter
+        'Dim cnAccess As OleDbConnection = New OleDbConnection
+        'cnAccess.ConnectionString = My.Settings.AccesCon
+
+
+        ''Access接続開始
+        'cnAccess.Open()
+
+        'Try
+
+        '    command.Connection = cnAccess
+        '    command.CommandText = sql.ToString
+        '    da.SelectCommand = command
+
+        '    'SQL実行 結果をデータテーブルに格納
+        '    da.Fill(resultDt)
 
 
 
-                'GridView1.DataSource = resultDt
 
 
-                'GridView1.DataBind()
-            Next
+        'Catch ex As Exception
+        '    Throw
+        'Finally
+        '    command.Dispose()
+        '    da.Dispose()
+        '    cnAccess.Close()
+        'End Try
 
-        Next
+        ''データテーブルの結果を表示
+        'For rowindex As Integer = 1 To resultDt.Rows.Count - 1
+        '    For colindex As Integer = 1 To resultDt.Columns.Count - 1
+
+
+
+
+
+
+        '        'GridView1.DataSource = resultDt
+
+
+        '        'GridView1.DataBind()
+        '    Next
+
+        'Next
     End Sub
 
 
@@ -195,12 +253,82 @@ Public Class WebForm1
 
 
 
+
+
+
+    Protected Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        Label1.Text = namex.Text
+
+
+    End Sub
+    Public ButtonName As String
+
     '検索ボタン
     Protected Sub Seach_Click(sender As Object, e As EventArgs) Handles Seach.Click
+        Dim routeConext As RouteContext
+        Dim actionDescripter As ActionDescriptor
 
 
 
 
+
+
+
+
+
+
+        'Try
+        '    GridView1.Columns.Clear()
+
+        '    Using con As New OleDbConnection
+        '        Using cmd As New OleDbCommand
+        '            con.ConnectionString =
+        '              "Provider=Microsoft.ACE.OLEDB.12.0" &
+        '              "Data Source= |DataDirectory|" &
+        '              "\Test.accdb"
+        '            cmd.Connection = con
+
+        '            'DB接続
+        '            con.Open()
+        '            cmd.CommandText = "SELECT ID FROM 名前テーブル OREDER BY ID"
+        '            MessageBox.Show(cmd.CommandText)
+        '            'レコード読込
+        '            Using dr As OleDbDataReader = cmd.ExecuteReader()
+        '                'レコード有無レコード
+        '                If dr.HasRows = True Then
+        '                    'レコードが取得できた時
+        '                    While dr.Read()
+
+        '                        If TxtSeach.Text = dr.ToString Then
+
+        '                            MessageBox.Show(1)
+        '                            Dim row As New GridView
+        '                            'セルのテンプレート
+        '                            Dim idx1 As Integer
+        '                            idx1 = dr.GetOrdinal("id")
+        '                            TextBox1.Text = dr.GetString(idx1)
+
+        '                            Dim idx2 As Integer
+        '                            idx2 = dr.GetOrdinal("顧客名")
+        '                            TextBox1.Text = dr.GetString(idx2)
+
+        '                        End If
+        '                    End While
+        '                Else
+        '                    MessageBox.Show("レコードがありません")
+        '                End If
+
+
+        '            End Using
+
+
+
+        '        End Using
+        '    End Using
+
+        'Catch ex As Exception
+        '    MessageBox.Show(ex.ToString)
+        'End Try
 
         Dim resultDt As New DataTable
         Dim sql = New System.Text.StringBuilder()
@@ -208,9 +336,11 @@ Public Class WebForm1
 
 
         sql.AppendLine("SELECT")
-        sql.AppendLine(" *")
+        sql.AppendLine(" id")
         sql.AppendLine("FROM 名前テーブル")
-        'sql.AppendLine("WHERE id=" + TextBox1.Text + "")
+
+
+
         'Access接続準備
         Dim command As New OleDbCommand
         Dim da As New OleDbDataAdapter
@@ -221,7 +351,14 @@ Public Class WebForm1
         'Access接続開始
         cnAccess.Open()
 
+
         Try
+
+            Dim builder As OleDbConnectionStringBuilder = New OleDbConnectionStringBuilder()
+
+
+
+
 
             command.Connection = cnAccess
             command.CommandText = sql.ToString
@@ -230,31 +367,75 @@ Public Class WebForm1
             'SQL実行 結果をデータテーブルに格納
             da.Fill(resultDt)
 
-            Dim reader As OleDbDataReader = command.ExecuteReader()
+
+
+            Using dr As OleDbDataReader = command.ExecuteReader()
+                If dr.HasRows = True Then
+                    While dr.Read()
+                        Dim row As New GridView
+
+
+                        MessageBox.Show(1)
 
 
 
-            If reader.Read() Then
+                        MessageBox.Show(TxtSeach.Text)
+                        MessageBox.Show(dr.GetOrdinal(sql.AppendLine("id").Length))
+                        'セルのテンプレート
+                        Dim idx1 As Integer
+
+
+                        TxtSeach.Text = dr.GetOrdinal(sql.AppendLine("id").Length)
 
 
 
-                TextBox1.Text = reader("id").ToString
-
-                TextBox2.Text = reader("顧客名").ToString
-                TextBox3.Text = reader("フリガナ").ToString
-                TextBox4.Text = reader("性別").ToString
-                TextBox5.Text = reader("会社名").ToString
-                TextBox6.Text = reader("住所").ToString
+                        row.Rows(1).Cells(0).Text = dr.GetString(idx1)
 
 
+                        'Dim idx2 As Integer
+                        '    idx2 = dr.GetOrdinal("顧客名")
+                        '    TextBox1.Text = dr.GetString(idx2)
 
-            End If
+
+                    End While
+                End If
+            End Using
+
+
+
+
+
+
+            'If Seach.ToString = reader("id").ToString Then
+            '    MessageBox.Show(1)
+
+            'End If
+
+            'If reader.Read() Then
+
+
+
+
+
+
+            '    TextBox1.Text = reader("id").ToString
+
+            '    TextBox2.Text = reader("顧客名").ToString
+            '    TextBox3.Text = reader("フリガナ").ToString
+            '    TextBox4.Text = reader("性別").ToString
+            '    TextBox5.Text = reader("会社名").ToString
+            '    TextBox6.Text = reader("住所").ToString
+
+
+
+            'End If
 
 
 
 
 
         Catch ex As Exception
+
             Throw
         Finally
             command.Dispose()
@@ -282,7 +463,6 @@ Public Class WebForm1
         '        '    If dr.HasRows = True Then
         '        '        While dr.Read()
         '        If Seach.Text > command.CommandText Then
-
 
 
 
@@ -317,150 +497,20 @@ Public Class WebForm1
     End Sub
 
 
-    ''更新ボタン
-    'Protected Sub Update_Click(sender As Object, e As EventArgs) Handles Update.Click
-    '    'SQL作成
-    '    Dim sql = New System.Text.StringBuilder()
 
-
-    '    sql.AppendLine("UPDATE 名前テーブル")
-    '    sql.AppendLine("SET 顧客名='TextBox.text' ")
-
-    '    sql.AppendLine("WHERE 顧客名='15'")
-    '    'sql.AppendLine("SET")
-
-
-
-
-
-
-    '    'Access接続準備
-    '    Dim command As New OleDbCommand
-    '    Dim cnAccess As OleDbConnection = New OleDbConnection
-    '    cnAccess.ConnectionString = My.Settings.AccesCon
-
-
-    '    'Access接続開始
-    '    cnAccess.Open()
-
-    '    Dim tran As OleDbTransaction
-    '    tran = cnAccess.BeginTransaction
-
-    '    Try
-
-    '        command.Connection = cnAccess
-    '        command.Transaction = tran
-
-    '        command.CommandText = sql.ToString
-    '        command.ExecuteNonQuery()
-
-
-    '        tran.Commit()
-
-    '    Catch ex As Exception
-    '        tran.Rollback()
-    '        Throw
-    '    Finally
-    '        command.Dispose()
-    '        cnAccess.Close()
-    '    End Try
-
-
-
-
-
-
-    'End Sub
-
-
-
-    ''削除ボタン
-
-    'Protected Sub Delete_Click(sender As Object, e As EventArgs) Handles Delete.Click
-    '    Dim DoCmd As New OleDbConnection
-
-
-    '    Dim sql3 = New System.Text.StringBuilder()
-    '    Dim list As New List(Of String)
-
-    '    Dim text As Integer
-
-
-
-    '    sql3.AppendLine("DELETE FROM  名前テーブル")
-    '    '   sql3.AppendLine("WHERE ID  = '" & TextBox1.Text & "@ID ")
-    '    sql3.AppendLine("ORDER BY id")
-    '    'sql3.AppendLine("WHERE id LIKE CONCAT(@SearchID,'%'" & TextBox1.Text)
-
-
-
-
-    '    'Access接続準備
-    '    Dim command As New OleDbCommand
-    '    Dim cnAccess As OleDbConnection = New OleDbConnection
-    '    cnAccess.ConnectionString = My.Settings.AccesCon
-
-
-    '    'Access接続開始
-    '    cnAccess.Open()
-
-    '    Dim tran As OleDbTransaction
-    '    tran = cnAccess.BeginTransaction
-    '    Try
-
-    '        command.Connection = cnAccess
-    '        command.Transaction = tran
-
-
-
-
-    '        command.CommandText = sql3.ToString
-    '        command.ExecuteNonQuery()
-
-
-    '        command.Parameters.Add(New Parameter(SearchID))
-
-
-    '        'Dim idx As Integer = Me.GridView1.Rows.Count - 1
-
-    '        'For Each row As GridView In GridView1.SelectedRow
-
-
-    '        '    Me.GridView1.Rows.IsReadOnly(row)
-    '        'Next
-    '        'Me.GridView1.EnablePersistedSelection()
-    '        MsgBox(command.Parameters.Add(New Parameter(SearchID)))
-
-    '        If TextBox1.ToString < getEncloseTxt(sql3.ToString) Then
-
-
-
-
-
-    '            MessageBox.Show(1)
-
-
-    '        End If
-    '        tran.Commit()
-
-
-
-    '        MsgBox(Delete.Text)
-
-    '    Catch ex As Exception
-    '        tran.Rollback()
-    '        'Throw
-    '    Finally
-    '        command.Dispose()
-    '        cnAccess.Close()
-    '    End Try
-
-    'End Sub
 
 
 
 
     Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+
+
+
+
+
+
+
         'Dim conn As SqlConnection = New SqlConnection(SqlDataSource1.ConnectionString)
 
         ''接続を開く
@@ -597,40 +647,48 @@ Public Class WebForm1
     Protected Sub GridView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView1.SelectedIndexChanged
 
     End Sub
+    Public Class AutoComplete
+        Inherits System.Web.Services.WebService
 
-    'Protected Sub menu_MenuItemClick(sender As Object, e As MenuEventArgs) Handles menu.MenuItemClick
-    '    Dim setting As ConnectionStringSettings =
-    '   ConfigurationManager.ConnectionStrings("Test")
-    '    Dim factory As DbProviderFactory =
-    '        DbProviderFactories.GetFactory(setting.ProviderName)
-    '    Using db As DbConnection = factory.CreateConnection()
-    '        db.ConnectionString = setting.ConnectionString
+        <WebMethod()>
+        Public Function GetCompletionList(ByVal prefixText As String, ByVal count As Integer) As String()
 
+            Dim list As New List(Of String)
 
-    '        ' パラメータparentをキーにsitemapテーブルを検索
-    '        ' （parentで指定されたURLを親に持つコンテンツを抽出）
-    '        Dim comm As DbCommand = factory.CreateCommand()
-    '        comm.CommandText =
-    '          "SELECT * FROM 名前テーブル WHERE ID=@id"
-    '        comm.Connection = db
-    '        Dim param As DbParameter = factory.CreateParameter()
-    '        param.ParameterName = "@id"
-    '        param.Value = Parent
-    '        comm.Parameters.Add(param)
-    '        db.Open()
-    '        Dim reader As DbDataReader = comm.ExecuteReader()
+            Dim setting As ConnectionStringSettings =
+              ConfigurationManager.ConnectionStrings("AccesCon")
+            Dim factory As DbProviderFactory =
+              DbProviderFactories.GetFactory(setting.ProviderName)
 
-    '        ' 取得したコンテンツを新規ノードとしてメニューに追加
-    '        ' その際、そのコンテンツが最末端でない（子ノードを持つ）
-    '        ' 場合には、CreateItemメソッドを再帰的に呼び出し、
-    '        ' 同様にノードの追加を行う
-    '        Do While reader.Read()
-    '            Dim item As New MenuItem()
-    '            item.Name = reader.GetString(0)
-    '            item.Text = reader.GetString(1)
-    '            'Me(reader.GetString(0), item.Text)
-    '            'Items.Add(item)
-    '        Loop
-    '    End Using
-    'End Sub
+            Using db As DbConnection = factory.CreateConnection()
+
+                db.ConnectionString = setting.ConnectionString
+                Dim comm As DbCommand = factory.CreateCommand()
+
+                ' パラメータprefixTextをキーに、
+                ' IndexListテーブルのitemフィールドを前方一致検索
+                ' （取得レコード数はパラメータcountで指定された件数で制限）
+                comm.CommandText =
+                  String.Format("SELECT ID  FROM 名前テーブル WHERE ID LIKE @ID", count)
+                comm.Connection = db
+                Dim param As DbParameter = factory.CreateParameter()
+                param.ParameterName = "@item"
+                param.Value = prefixText & "%"
+                comm.Parameters.Add(param)
+                db.Open()
+
+                ' 取得した結果セットの内容を可変配列listに順番に追加
+                Dim reader As DbDataReader = comm.ExecuteReader()
+                Do While reader.Read()
+                    list.Add(reader.GetString(0))
+                Loop
+            End Using
+            Return list.ToArray()
+        End Function
+    End Class
+
+    Protected Sub DropDownList1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles DropDownList1.SelectedIndexChanged
+        DropDownList1.SelectedValue = TextBox1.Text
+
+    End Sub
 End Class
